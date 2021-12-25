@@ -12,7 +12,7 @@ def index():
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Pauser</title>
+    <title>PyPauser</title>
   </head>
   <body>
     <form method="post" action="/pause"><button style="width: 100%; height: 200px; margin-top: 200px; font-size: 50px">Pause / Play</button></form>
