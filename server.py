@@ -16,6 +16,7 @@ def index():
   </head>
   <body>
     <form method="post" action="/pause"><button style="width: 100%; height: 200px; margin-top: 200px; font-size: 50px">Pause / Play</button></form>
+    <form method="post" action="/next"><button style="width: 100%; height: 200px; margin-top: 50px; font-size: 50px">Next</button></form>
   </body>
 </html>
 """
@@ -26,5 +27,12 @@ def pause():
     keyboard.release(Key.space)
     return redirect('/')
 
+@app.route('/next', methods=['POST'])
+def next():
+    with keyboard.pressed(Key.shift):
+      keyboard.press('n')
+      keyboard.release('n')
+    return redirect('/')
+
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=False, host='0.0.0.0')
