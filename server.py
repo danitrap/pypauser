@@ -1,9 +1,10 @@
 from flask import Flask, redirect
-from pynput.keyboard import Key, Controller
-
-keyboard = Controller()
+import os
 
 app = Flask(__name__)
+
+def type(string):
+    os.system('YDOTOOL_SOCKET="$HOME/.ydotool_socket" ydotool type "' + string + '"')
 
 @app.route('/')
 def index():
@@ -21,17 +22,16 @@ def index():
 </html>
 """
 
+
 @app.route('/pause', methods=['POST'])
 def pause():
-    keyboard.press(Key.space)
-    keyboard.release(Key.space)
+    type(' ')
     return redirect('/')
 
 @app.route('/next', methods=['POST'])
 def next():
-    with keyboard.pressed(Key.shift):
-      keyboard.press('n')
-      keyboard.release('n')
+    # press Shift + n
+    os.system('YDOTOOL_SOCKET="$HOME/.ydotool_socket" ydotool key 42:1 49:1 49:0 42:0')
     return redirect('/')
 
 if __name__ == '__main__':

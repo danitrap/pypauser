@@ -1,0 +1,53 @@
+diff --git a/.gitignore b/.gitignore
+index 9f785c9..5ceb386 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -1 +1 @@
+-ngrok.exe
+\ No newline at end of file
++venv
+diff --git a/server.py b/server.py
+index e057a3d..31fcbdd 100644
+--- a/server.py
++++ b/server.py
+@@ -1,10 +1,11 @@
+ from flask import Flask, redirect
+-from pynput.keyboard import Key, Controller
+-
+-keyboard = Controller()
++import os
+ 
+ app = Flask(__name__)
+ 
++def type(string):
++    os.system('YDOTOOL_SOCKET="$HOME/.ydotool_socket" ydotool type "' + string + '"')
++
+ @app.route('/')
+ def index():
+     return """
+@@ -21,18 +22,18 @@ def index():
+ </html>
+ """
+ 
++
+ @app.route('/pause', methods=['POST'])
+ def pause():
+-    keyboard.press(Key.space)
+-    keyboard.release(Key.space)
++    type(' ')
+     return redirect('/')
+ 
+ @app.route('/next', methods=['POST'])
+ def next():
+-    with keyboard.pressed(Key.shift):
+-      keyboard.press('n')
+-      keyboard.release('n')
++    # press Shift + n
++    os.system('YDOTOOL_SOCKET="$HOME/.ydotool_socket" ydotool key 42:1 49:1 49:0 42:0')
+     return redirect('/')
+ 
+ if __name__ == '__main__':
+-    app.run(debug=False, host='0.0.0.0')
+\ No newline at end of file
++    print("first, run sudo -b ydotoold --socket-path=\"$HOME/.ydotool_socket\" --socket-own=\"$(id -u):$(id -g)\"")
++    app.run(debug=False, host='0.0.0.0')
