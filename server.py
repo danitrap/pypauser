@@ -4,7 +4,7 @@ import os
 app = Flask(__name__)
 
 def type(string):
-    os.system('YDOTOOL_SOCKET="$HOME/.ydotool_socket" ydotool type "' + string + '"')
+    os.system(f'YDOTOOL_SOCKET="$HOME/.ydotool_socket" ydotool type "{string}"')
 
 @app.route('/')
 def index():
