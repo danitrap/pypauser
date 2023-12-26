@@ -1,4 +1,4 @@
-from flask import Flask, redirect
+from flask import Flask, redirect, render_template
 import os
 
 app = Flask(__name__)
@@ -14,41 +14,7 @@ def type(string):
 
 @app.route('/')
 def index():
-    return """
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>PyPauser</title>
-  </head>
-  <body>
-    <div style="
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        height: calc(100dvh - 10em);
-        margin-top: 10em;
-    ">
-        <form method="post" action="/pause">
-            <button
-                style="width: 100%; height: 200px;
-                margin-top: 200px; font-size: 50px"
-            >
-                Pause / Play
-            </button>
-        </form>
-        <form method="post" action="/next">
-            <button
-                style="width: 100%; height: 200px;
-                margin-top: 50px; font-size: 50px"
-            >
-                Next
-            </button>
-        </form>
-    </div>
-  </body>
-</html>
-"""
+    return render_template('index.html')
 
 
 @app.route('/pause', methods=['POST'])
